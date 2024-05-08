@@ -1,0 +1,24 @@
+# Copyright (C) 2023 Gramine contributors
+# SPDX-License-Identifier: BSD-3-Clause
+
+# Hello World manifest file example
+
+libos.entrypoint = "/myservice"
+loader.log_level = "{{ log_level }}"
+
+loader.env.LD_LIBRARY_PATH = "/lib"
+
+loader.entrypoint = "file:/usr/lib/x86_64-linux-gnu/gramine/libsysdb.so"
+
+fs.mounts = [
+  { path = "/lib", uri = "file:{{ gramine.runtimedir() }}" },
+  { path = "/myservice", uri = "file:myservice" },
+]
+
+sgx.debug = true
+sgx.edmm_enable = {{ 'true' if env.get('EDMM', '0') == '1' else 'false' }}
+
+sgx.trusted_files = [
+  "file:myservice",
+  "file:{{ gramine.runtimedir() }}/",
+]

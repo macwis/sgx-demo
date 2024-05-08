@@ -1,0 +1,7 @@
+*.token
+*.sig
+*.manifest.sgx
+*.manifest
+myservice.o
+myservice
+OUTPUT
